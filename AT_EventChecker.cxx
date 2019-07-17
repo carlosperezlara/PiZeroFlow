@@ -158,8 +158,10 @@ void AT_EventChecker::MyExec() {
   float meanN = fGLB2.bbcnTmean;
   float sgnS = fGLB.bbcs;
   float sgnN = fGLB2.bbcn;
-  if(sgnS>93||sgnS<71) return;
-  if(sgnN>50||sgnN<5) return;
+  //if(sgnS>93||sgnS<71) return;
+  //if(sgnN>50||sgnN<5) return;
+  if(sgnS>kBBCADCMax_S||sgnS<kBBCADCMin_S) return;
+  if(sgnN>kBBCADCMax_N||sgnN<kBBCADCMin_N) return;
   hEvents->Fill(9); // init
   if( TMath::IsNaN(meanS) || TMath::IsNaN(meanN) ) return;
   if( TMath::IsNaN(rmsS) || TMath::IsNaN(rmsN) ) {
