@@ -21,7 +21,7 @@ int plotMethod(TString method="EP") {
   main3->Divide(5,5);
   TCanvas *mainPUB = new TCanvas("pub","pub");
   mainPUB->Divide(2,1);
-  for(int pt=2; pt!=20; ++pt) {
+  for(int pt=2; pt!=19; ++pt) {
     //Double_t minPt = map->GetXaxis()->GetBinLowEdge( pt+1 );
     //Double_t maxPt = map->GetXaxis()->GetBinLowEdge( pt+2 );
     binPT[pt] = (TH1D*) listY->FindObject( Form("Yield_PB%d",pt) );
