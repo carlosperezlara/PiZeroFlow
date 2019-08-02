@@ -40,7 +40,7 @@ int main() {
     epc->Save("PiZero_EP/allfiles/allNOM_EP_Ord1.root");
   }
 
-  {
+  if(0){
     QC_ScalarProduct *spc = new QC_ScalarProduct();
     list = (TList*) fin->Get("SP_Ord1_Psi1");
     list->ls();
@@ -66,7 +66,7 @@ int main() {
     spc->Save("PiZero_EP/allfiles/allNOM_SP_Ord1.root");
   }
 
-  {
+  if(0){
     QC_Cumulants *qcc = new QC_Cumulants();
     list = (TList*) fin->Get("QC_Ord1_Psi1");
     list->ls();

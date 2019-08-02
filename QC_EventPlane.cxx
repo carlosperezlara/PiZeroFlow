@@ -161,6 +161,7 @@ void QC_EventPlane::Results() {
     }
   }
   for(int pt=0; pt!=fPQC->GetXaxis()->GetNbins(); ++pt) { // as good as any
+    std::cout << "entering" << std::endl;
     tD2[pt]  = new TH1D( Form("D2_%d_%s_UNBINNED",pt,fList->GetName()), "UNBINNED_D2;d\{2}", nma-1,nmas);
     tPV2[pt] = new TH1D( Form("PV2_%d_%s_UNBINNED",pt,fList->GetName()),"UNBINNED_PV2;v\{2}",nma-1,nmas);
     if(pt>=12) {
@@ -191,6 +192,7 @@ void QC_EventPlane::Results() {
       tPV2[pt]->SetBinContent(ma+1,pv2);
       tPV2[pt]->SetBinError(ma+1,pv2_err);
     }
+    std::cout << "unbinned" << std::endl;
     //BINNED
     TProfile *tempBin0 = fPQC->ProfileY(Form("tempBin_PT%d",pt),pt+1,pt+1,"s");
     TProfile *tempBin;
@@ -215,6 +217,7 @@ void QC_EventPlane::Results() {
       tFPV2[pt]->SetBinContent(ma+1,pv2);
       tFPV2[pt]->SetBinError(ma+1,pv2_err);
     }
+    std::cout << "leaving" << std::endl;
   }
 }
 
