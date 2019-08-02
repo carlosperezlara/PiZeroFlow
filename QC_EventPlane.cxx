@@ -106,34 +106,70 @@ void QC_EventPlane::Results() {
   TH1D *tFD2[1000];
   TH1D *tFPV2[1000];
   const TArrayD *arrma = fBinMap->GetYaxis()->GetXbins();
+  //======
   Int_t nma = arrma->GetSize();
   Double_t nmas[1000];
+  for(int i=0; i!=nma; ++i) {
+    nmas[i] = arrma->GetAt(i);
+  }
+  //======
   Int_t nma0=0;
   Double_t nmas0[1000];
   for(int i=0; i!=nma; ++i) {
-    nmas[i] = arrma->GetAt(i);
     if(i<36) {
       if(i%6==0) {
 	nmas0[nma0] = arrma->GetAt(i);
+	std::cout << "MASSBIN0: " << nmas0[nma0] << std::endl;
 	nma0++;
       }
-    } else if(i>=78) {
+    } else if(i>=66) {
       if(i%6==0) {
 	nmas0[nma0] = arrma->GetAt(i);
+	std::cout << "MASSBIN0: " << nmas0[nma0] << std::endl;
 	nma0++;
       }
     } else {
       if(i%3==0) {
 	nmas0[nma0] = arrma->GetAt(i);
+	std::cout << "MASSBIN0: " << nmas0[nma0] << std::endl;
 	nma0++;
+      }
+    }
+  }
+  //======
+  Int_t nma1=0;
+  Double_t nmas1[1000];
+  for(int i=0; i!=nma; ++i) {
+    if(i<36) {
+      if(i%12==0) {
+	nmas1[nma1] = arrma->GetAt(i);
+	std::cout << "MASSBIN1: " << nmas1[nma1] << std::endl;
+	nma1++;
+      }
+    } else if(i>=60) {
+      if(i%12==0) {
+	nmas1[nma1] = arrma->GetAt(i);
+	std::cout << "MASSBIN1: " << nmas1[nma1] << std::endl;
+	nma1++;
+      }
+    } else {
+      if(i%6==0) {
+	nmas1[nma1] = arrma->GetAt(i);
+	std::cout << "MASSBIN1: " << nmas1[nma1] << std::endl;
+	nma1++;
       }
     }
   }
   for(int pt=0; pt!=fPQC->GetXaxis()->GetNbins(); ++pt) { // as good as any
     tD2[pt]  = new TH1D( Form("D2_%d_%s_UNBINNED",pt,fList->GetName()), "UNBINNED_D2;d\{2}", nma-1,nmas);
     tPV2[pt] = new TH1D( Form("PV2_%d_%s_UNBINNED",pt,fList->GetName()),"UNBINNED_PV2;v\{2}",nma-1,nmas);
-    tFD2[pt]  = new TH1D( Form("D2_%d_%s_BINNED",pt,fList->GetName()), "BINNED_D2;d\{2}", nma0-1,nmas0);
-    tFPV2[pt] = new TH1D( Form("PV2_%d_%s_BINNED",pt,fList->GetName()),"BINNED_PV2;v\{2}",nma0-1,nmas0);
+    if(pt>=12) {
+      tFD2[pt]  = new TH1D( Form("D2_%d_%s_BINNED",pt,fList->GetName()), "BINNED_D2;d\{2}", nma1-1,nmas1);
+      tFPV2[pt] = new TH1D( Form("PV2_%d_%s_BINNED",pt,fList->GetName()),"BINNED_PV2;v\{2}",nma1-1,nmas1);
+    } else {
+      tFD2[pt]  = new TH1D( Form("D2_%d_%s_BINNED",pt,fList->GetName()), "BINNED_D2;d\{2}", nma0-1,nmas0);
+      tFPV2[pt] = new TH1D( Form("PV2_%d_%s_BINNED",pt,fList->GetName()),"BINNED_PV2;v\{2}",nma0-1,nmas0);
+    }
     fListResults->Add(tD2[pt]);
     fListResults->Add(tFD2[pt]);
     fListResults->Add(tPV2[pt]);
@@ -157,7 +193,14 @@ void QC_EventPlane::Results() {
     }
     //BINNED
     TProfile *tempBin0 = fPQC->ProfileY(Form("tempBin_PT%d",pt),pt+1,pt+1,"s");
-    TProfile *tempBin = (TProfile*) tempBin0->Rebin(nma0-1,Form("tempBin_PT%d_BINNED",pt),nmas0);
+    TProfile *tempBin;
+    if(pt>=12) {
+      tempBin = (TProfile*) tempBin0->Rebin(nma1-1,Form("tempBin1_PT%d_BINNED",pt),nmas1);
+      std::cout << "PT" << pt << " massbin1 " << nma1 << std::endl;
+    } else {
+      tempBin = (TProfile*) tempBin0->Rebin(nma0-1,Form("tempBin0_PT%d_BINNED",pt),nmas0);
+      std::cout << "PT" << pt << " massbin0 " << nma0 << std::endl;
+    }
     for(int ma=0; ma!=tempBin->GetXaxis()->GetNbins(); ++ma) {
       Int_t bin = ma+1;
       //std::cout << "BIN " << bin << "  BINX " << binx << "  BINY " << biny << std::endl;

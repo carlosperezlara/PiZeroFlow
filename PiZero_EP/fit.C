@@ -24,6 +24,8 @@ int fit(int ptbin=5, TString method="EP") {
   TString title = yield->GetTitle();
   TH1D *bgr = (TH1D*) list1->At(1);
   TH1D *flow = (TH1D*) list2->At(0);
+  minX = flow->GetXaxis()->GetBinLowEdge(2);
+  maxX = flow->GetXaxis()->GetBinLowEdge( flow->GetXaxis()->GetNbins() );
   TLatex *tex = new TLatex();
   tex->SetTextColor(kGreen-3);
   //cout << yield->GetTitle() << endl; 
@@ -38,7 +40,7 @@ int fit(int ptbin=5, TString method="EP") {
   TString pol5 = pol3 + Form("+%s*(8*pow(x,4)-8*x*x+1)+%s*(16*pow(x,5)-20*pow(x,3)+5*x)","[4]","[5]");
   TString pol7 = pol5 + Form("+%s*(32*pow(x,6)-48*pow(x,4)+18*x*x-1)+%s*(64*pow(x,7)-112*pow(x,5)+56*x*x*x-7*x)","[6]","[7]");
   cout << pol7.Data() << endl;
-  TF1 *bgrF = new TF1("bgrF",pol7.Data());
+  TF1 *bgrF = new TF1("bgrF",pol7.Data(),minX,maxX);
   bgr->Fit(bgrF,"LQR","",minX,maxX);
   bgr->Fit(bgrF,"EMIR","",minX,maxX);
   cout << "Reduced chi squared " << bgrF->GetChisquare() / bgrF->GetNDF() << endl;
