@@ -31,10 +31,11 @@ int plotfit() {
   gsychpi->SetMarkerStyle( 21 );
 
   ifstream fin;
-  for(int ptbin=2; ptbin!=20; ++ptbin) {
+  for(int ptbin=2; ptbin!=19; ++ptbin) {
     double tmp;
     fin.open( Form("fit/res/EP_PB%02d_DF.res",ptbin) );
     fin >> tmp >> pt[pts] >> pt[pts+1];
+    if(!fin.good()) continue;
     fin >> rw[pts] >> erw[pts];
     fin >> mu[pts] >> emu[pts];
     fin >> sg[pts] >> esg[pts];

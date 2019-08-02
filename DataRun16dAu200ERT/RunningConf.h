@@ -26,7 +26,7 @@ const unsigned int kTriggerMask = kR16dAu200_bbcnc | kR16dAu200_bbn | kR16dAu200
 
 
 //Config for EventChecker
-int kBBCADCMin_S = 71; // Au
-int kBBCADCMax_S = 93; // Au
-int kBBCADCMin_N = 5;  // d
-int kBBCADCMax_N = 50; // d
+const int kBBCADCMin_S = 71; // Au
+const int kBBCADCMax_S = 93; // Au
+const int kBBCADCMin_N = 5;  // d
+const int kBBCADCMax_N = 50; // d
