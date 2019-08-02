@@ -223,6 +223,7 @@ void QC_EventPlane::Reset() {
 //==========
 void QC_EventPlane::FillCandidate(Double_t pt, Double_t ma, Double_t phi) {
   fBinMap->Fill(pt,ma);
+  fBinMapPt->Fill(pt,ma,pt);
   Double_t psi  = fQ->Psi2Pi();
   Int_t n = fQ->Order();
   Double_t cos = TMath::Cos( n*(phi-psi) );

@@ -3,6 +3,7 @@
 #include <TList.h>
 #include <TMath.h>
 #include <TH2D.h>
+#include <TProfile2D.h>
 #include "qcQ.h"
 #include "QCorrelation.h"
 
@@ -17,12 +18,11 @@ QCorrelation::QCorrelation() {
 			 10., 20.};
   }
   */
-  const int nptbins = 20;
-  Double_t ptbins[21] = {0.40, 0.60, 0.80, 1.00, 1.20,
+  const int nptbins = 19;
+  Double_t ptbins[20] = {0.40, 0.60, 0.80, 1.00, 1.20,
 			 1.40, 1.60, 1.80, 2.00, 2.20,
-			 2.40, 2.75, 3.00, 3.25, 3.50,
-			 4.00, 5.00, 6.00, 8.00, 10.0,
-			 20.0};
+			 2.40, 2.80, 3.20, 3.60, 4.00,
+			 5.00, 6.00, 8.00, 10.0, 20.0};
   Double_t mabins[111];
   std::vector<Double_t> cfg;
   for(int i=0; i!=111; ++i) {
@@ -63,6 +63,8 @@ void QCorrelation::Init(TString name) {
   std::cout << npt << " " << nma << std::endl;
   fBinMap = new TH2D(Form("binmap_%s",name.Data()),"binmap;pt,mass",npt-1,npts,nma-1,nmas);
   fList->Add(fBinMap);
+  fBinMapPt = new TProfile2D(Form("binmappt_%s",name.Data()),"binmappt;pt,mass",npt-1,npts,nma-1,nmas);
+  fList->Add(fBinMapPt);
 }
 //=====
 void QCorrelation::ClearResults() {

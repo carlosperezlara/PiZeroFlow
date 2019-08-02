@@ -39,14 +39,14 @@ int plotfit() {
     fin >> mu[pts] >> emu[pts];
     fin >> sg[pts] >> esg[pts];
     fin >> vnEP[pts] >> evnEP[pts];
+    cout << Form("%.1f  %.1f   |   %f  %f",pt[pts], pt[pts+1], vnEP[pts], evnEP[pts]) << endl;
     rw[pts] /= (pt[pts+1]-pt[pts]);
     erw[pts] /= (pt[pts+1]-pt[pts]);
-    pt[pts] = (pt[pts+1]+pt[pts])/2;
     ept[pts] = (pt[pts+1]-pt[pts])/2;
+    pt[pts] = (pt[pts+1]+pt[pts])/2;
     vnEPs[pts] = vnEP[pts]*4;
     evnEPs[pts] = evnEP[pts]*4;
     fin.close();
-    cout << Form("%.1f  %.1f",pt[pts], pt[pts+1]) << endl;
     pts++;
   }
   /*

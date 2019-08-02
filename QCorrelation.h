@@ -4,6 +4,7 @@
 #include <TString.h>
 #include <TList.h>
 #include <TH2D.h>
+#include <TProfile2D.h>
 #include "qcQ.h"
 
 class QCorrelation {
@@ -40,6 +41,7 @@ class QCorrelation {
   TList *fList;
   TList *fListResults;
   TH2D *fBinMap;
+  TProfile2D *fBinMapPt;
   // used to create binmap during init
   std::vector<Double_t> fPtList;
   std::vector<Double_t> fMaList;
