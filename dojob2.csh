@@ -23,8 +23,8 @@ echo $X
 #cd ..
 
 cd PiZero_EP
-#foreach Y ( "A0" "A1" "D0" "D1" "FA0" "FA1" "FD0" "FD1" "FT0" "FT1" "T0" "T1" )
-foreach Y ( "NOM" )
+foreach Y ( "A0" "A1" "D0" "D1" "FA0" "FA1" "FD0" "FD1" "FT0" "FT1" "T0" "T1" )
+#foreach Y ( "NOM" )
     rm out${Y}/run${X}.root
     hadd out${Y}/run${X}.root out${Y}/out_${X}*.root
 end

@@ -3,12 +3,18 @@
 #include <TCanvas.h>
 #include <TH1D.h>
 #include <TProfile.h>
+#include <TString.h>
 #include "QC_EventPlane.h"
 #include "QC_ScalarProduct.h"
 #include "QC_Cumulants.h"
 
-int main() {
-  TFile *fin = new TFile("PiZero_EP/allfiles/allNOM.root");
+int main(int nv, char** vars) {
+  TFile *fin;
+  TString set="NOM";
+  if(nv==2) {
+    set = vars[1];
+  }
+  fin = new TFile( Form("PiZero_EP/allfiles/all%s.root",set.Data()) );
   fin->ls();
   TList *listEP = (TList*) fin->Get("AT_EP");
   //return 0;
@@ -36,8 +42,7 @@ int main() {
       mass->Add( binPT[pt] );
       mass->Add( mixPT[pt] );
     }
-
-    epc->Save("PiZero_EP/allfiles/allNOM_EP_Ord1.root");
+    epc->Save( Form("PiZero_EP/allfiles/all%s_EP_Ord1.root",set.Data()) );
   }
 
   if(0){
@@ -63,7 +68,7 @@ int main() {
       mass->Add( binPT[pt] );
       mass->Add( mixPT[pt] );
     }
-    spc->Save("PiZero_EP/allfiles/allNOM_SP_Ord1.root");
+    spc->Save( Form("PiZero_EP/allfiles/all%s_SP_Ord1.root",set.Data()) );
   }
 
   if(0){
@@ -89,7 +94,7 @@ int main() {
       mass->Add( binPT[pt] );
       mass->Add( mixPT[pt] );
     }
-    qcc->Save("PiZero_EP/allfiles/allNOM_QC_Ord1.root");
+    qcc->Save( Form("PiZero_EP/allfiles/all%s_QC_Ord1.root",set.Data()) );
   }
 
   fin->Close();
