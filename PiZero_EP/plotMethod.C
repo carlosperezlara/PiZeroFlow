@@ -1,5 +1,5 @@
-int plotMethod(TString method="EP") {
-  TFile *file = new TFile( Form("allfiles/allNOM_%s_Ord1.root",method.Data()) );
+int plotMethod(TString method="EP", TString cut="NOM") {
+  TFile *file = new TFile( Form("allfiles/all%s_%s_Ord1.root",cut.Data(),method.Data()) );
   TList *list = (TList*) file->Get( Form("%s_Ord1_Psi1",method.Data()) );
   TList *listR = (TList*) list->FindObject("results");
   TList *listY = (TList*) list->FindObject("yields");
@@ -84,7 +84,7 @@ int plotMethod(TString method="EP") {
     mixPT[pt]->Draw("SAME");
     mainPUB->cd(2);
     PV2BINNED[pt]->Draw();
-    mainPUB->SaveAs( Form("fit/%s_PB%02d.root",method.Data(),pt), "root" );
+    mainPUB->SaveAs( Form("fit/%s_%s_PB%02d.root",cut.Data(),method.Data(),pt), "root" );
   }
 
 }
