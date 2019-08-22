@@ -9,11 +9,11 @@ void FCN(Int_t& a, Double_t& b, Double_t &val, Double_t *par, Int_t e) {
   fitter1->FCN( a, b, val, par, e );
 }
 
-int fit(int ptbin=18, TString method="EP") {
+int fit(int ptbin=18, TString method="EP", TString cut="NOM") {
   Double_t minX = 0.055;
   Double_t maxX = 0.240;
   gStyle->SetOptStat(0);
-  TFile *file = new TFile( Form("fit/%s_PB%02d.root",method.Data(),ptbin) );
+  TFile *file = new TFile( Form("fit/%s_%s_PB%02d.root",cut.Data(),method.Data(),ptbin) );
   TCanvas *main = (TCanvas*) file->Get("pub");
   main->Draw();
   TList *list1 = ((TPad*) main->GetListOfPrimitives()->At(0))->GetListOfPrimitives();
@@ -168,9 +168,9 @@ int fit(int ptbin=18, TString method="EP") {
   Double_t nchi2 = flowF->GetChisquare()/flowF->GetNDF();
   tex->DrawLatexNDC(0.15,0.85, Form("FlowSGN  %.3f",flowF->GetParameter(3)) );
   tex->DrawLatexNDC(0.15,0.80, Form("Chi2/NDF  %.2f",nchi2) );
-  mainR->SaveAs( Form("fit/res/%s_PB%02d_DF.png",method.Data(),ptbin),"png" );
+  mainR->SaveAs( Form("fit/res/%s_%s_PB%02d_DF.png",cut.Data(),method.Data(),ptbin),"png" );
 
-  ofstream fout( Form("fit/res/%s_PB%02d_DF.res",method.Data(),ptbin)  );
+  ofstream fout( Form("fit/res/%s_%s_PB%02d_DF.res",cut.Data(),method.Data(),ptbin)  );
   TString nocortitle = title(1,title.Length()-2);
   TString sptmin = nocortitle(0,nocortitle.Length()/2-2);
   TString sptmax = nocortitle(nocortitle.Length()/2+1,nocortitle.Length()-2);
@@ -183,6 +183,6 @@ int fit(int ptbin=18, TString method="EP") {
   }
   fout << Form( "%f %f", flowF->GetParameter(3), flowF->GetParError(3)) << endl;
   fout.close();
-  cout << "File  " << Form("fit/res/%s_PB%02d_DF.res",method.Data(),ptbin) << "  was saved." << endl;
+  cout << "File  " << Form("fit/res/%s_%s_PB%02d_DF.res",cut.Data(),method.Data(),ptbin) << "  was saved." << endl;
 
 }
