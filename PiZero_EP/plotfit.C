@@ -1,4 +1,4 @@
-int plotfit() {
+int plotfit(TString cut="NOM") {
   gStyle->SetOptStat(0);
   int pts=0;
   double pt[100]; double ept[100];
@@ -33,7 +33,7 @@ int plotfit() {
   ifstream fin;
   for(int ptbin=2; ptbin!=19; ++ptbin) {
     double tmp;
-    fin.open( Form("fit/res/EP_PB%02d_DF.res",ptbin) );
+    fin.open( Form("fit/res/%s_EP_PB%02d_DF.res",cut.Data(),ptbin) );
     fin >> tmp >> pt[pts] >> pt[pts+1];
     if(!fin.good()) continue;
     fin >> rw[pts] >> erw[pts];
