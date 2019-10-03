@@ -152,10 +152,10 @@ int fit(int ptbin=18, TString method="EP", TString cut="NOM") {
 					   gaus.Data(),Spol7fix.Data(),
 					   gaus.Data(),Spol7fix.Data()),minX,maxX );
   flowBgrF->SetLineColor(kRed-3);
-  flowBgrF->SetParameter( 0, flowF->GetParameter(0));
+  flowBgrF->SetParameter( 0, 0);
   flowBgrF->SetParameter( 1, flowF->GetParameter(1));
   flowBgrF->SetParameter( 2, flowF->GetParameter(2));
-  flowBgrF->SetParameter( 3, flowF->GetParameter(4));
+  flowBgrF->SetParameter( 3, flowF->GetParameter(3));
   flowBgrF->SetParameter( 4, flowF->GetParameter(4));
   flowBgrF->SetParameter( 5, flowF->GetParameter(5));
   flowBgrF->SetParameter( 6, flowF->GetParameter(6));
