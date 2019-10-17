@@ -66,6 +66,10 @@ void AT_EP::Init() {
 			  Form("hMass2_PB%d;Mass",p),
 			  nma, fMassBins[0], fMassBins[1] );
     fListEP->Add( hMass2[p] );
+    hMass3[p] = new TProfile( Form("hMass3_PB%d",p),
+			      Form("hMass3_PB%d;Mass",p),
+			      nma, fMassBins[0], fMassBins[1] );
+    fListEP->Add( hMass3[p] );
   }
 }
 
@@ -111,6 +115,7 @@ Bool_t AT_EP::Exec() {
     /// recording
     hEta->Fill( a.Eta() );
     hMass[pb]->Fill(ma);
+    hMass3[pb]->Fill(ma,pt);
     for(int ord=0; ord!=4; ++ord) {
       fEP[ord]->FillCandidate(pt,ma,a.Phi());
       fSP[ord]->FillCandidate(pt,ma,a.Phi());
